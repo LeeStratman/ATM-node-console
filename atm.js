@@ -9,7 +9,10 @@ function withdraw(amount) {
   console.log("New balance: ", formatCurrency(account.balance));
 }
 
-function deposit() {}
+function deposit(amount) {
+  account.balance += Number(amount);
+  console.log("New balance: ", formatCurrency(account.balance));
+}
 
 function validatePin(pin) {
   return account.pin === pin;

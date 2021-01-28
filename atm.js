@@ -1,5 +1,7 @@
 const account = require("./account");
 
+const currency = "$";
+
 function getBalance() {
   return formatCurrency(account.balance);
 }
@@ -19,7 +21,7 @@ function validatePin(pin) {
 }
 
 function formatCurrency(amount) {
-  return `${account.currency}${amount.toFixed(2)}`;
+  return `${currency}${amount.toFixed(2)}`;
 }
 
 module.exports = {
@@ -27,4 +29,5 @@ module.exports = {
   withdraw,
   deposit,
   validatePin,
+  currency,
 };

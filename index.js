@@ -28,11 +28,11 @@ function userMenu() {
       console.log(atm.getBalance());
       break;
     case "2":
-      amount = prompt("Enter amount to withdraw: ");
+      amount = prompt(`Enter amount to withdraw: ${atm.currency}`);
       atm.withdraw(amount);
       break;
     case "3":
-      amount = prompt("Enter amount to deposit: ");
+      amount = prompt(`Enter amount to deposit: ${atm.currency}`);
       atm.deposit(amount);
       break;
     case "4":

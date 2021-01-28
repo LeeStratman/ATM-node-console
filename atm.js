@@ -7,12 +7,12 @@ function getBalance() {
 }
 
 function withdraw(amount) {
-  account.balance -= Number(amount);
+  account.balance -= parseFloat(amount);
   console.log("New balance: ", formatCurrency(account.balance));
 }
 
 function deposit(amount) {
-  account.balance += Number(amount);
+  account.balance += parseFloat(amount);
   console.log("New balance: ", formatCurrency(account.balance));
 }
 

@@ -27,11 +27,17 @@ function userMenu() {
       console.log(atm.getBalance());
       break;
     case "2":
-      amount = prompt(`Enter amount to withdraw: ${atm.currency}`);
+      amount = promptFor(
+        `Enter amount to withdraw: ${atm.currency}`,
+        isValidAmount
+      );
       atm.withdraw(amount);
       break;
     case "3":
-      amount = prompt(`Enter amount to deposit: ${atm.currency}`);
+      amount = promptFor(
+        `Enter amount to deposit: ${atm.currency}`,
+        isValidAmount
+      );
       atm.deposit(amount);
       break;
     case "4":
@@ -43,6 +49,33 @@ function userMenu() {
     default:
       return userMenu();
   }
+
+  return userMenu();
+}
+
+function promptFor(question, valid) {
+  do {
+    var response = prompt(question);
+  } while (!response || !valid(response));
+  return response;
+}
+
+function isValidAmount(input) {
+  let float = parseFloat(input);
+  return !isNaN(float) && float > 0 && isFixed(input, 2);
+}
+
+function isFixed(input, decimalPlaces) {
+  let decimals = String(input).split(".");
+
+  if (
+    decimals.length === 1 ||
+    (decimals.length > 1 && decimals[1].length <= decimalPlaces)
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 app();

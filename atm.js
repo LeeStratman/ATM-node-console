@@ -1,6 +1,8 @@
 const account = require("./account");
 
-function getBalance() {}
+function getBalance() {
+  return account.balance;
+}
 
 function withdraw() {}
 

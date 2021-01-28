@@ -25,7 +25,7 @@ function userMenu() {
 
   switch (action.toLowerCase().trim()) {
     case "1":
-      console.log("Balance");
+      console.log(atm.getBalance());
       break;
     case "2":
       console.log("Withdraw");

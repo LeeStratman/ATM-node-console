@@ -21,7 +21,11 @@ function validatePin(pin) {
 }
 
 function formatCurrency(amount) {
-  return `${currency}${amount.toFixed(2)}`;
+  let sign = "";
+  if (amount < 0) {
+    sign = "-";
+  }
+  return `${sign}${currency}${Math.abs(amount.toFixed(2))}`;
 }
 
 module.exports = {

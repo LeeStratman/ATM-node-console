@@ -3,12 +3,12 @@ const account = require("./account");
 const currency = "$";
 
 function getBalance() {
-  return formatCurrency(account.balance);
+  console.log("Your balance: ", formatCurrency(account.balance));
 }
 
 function withdraw(amount) {
   account.balance -= parseFloat(amount);
-  console.log("New balance: ", formatCurrency(account.balance));
+  console.log("New balance:", formatCurrency(account.balance));
 }
 
 function deposit(amount) {
@@ -24,8 +24,9 @@ function formatCurrency(amount) {
   let sign = "";
   if (amount < 0) {
     sign = "-";
+    amount = Math.abs(amount);
   }
-  return `${sign}${currency}${Math.abs(amount.toFixed(2))}`;
+  return `${sign}${currency}${amount.toFixed(2)}`;
 }
 
 module.exports = {

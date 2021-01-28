@@ -21,7 +21,7 @@ function userMenu() {
 
   switch (action.toLowerCase().trim()) {
     case "1":
-      console.log(atm.getBalance());
+      atm.getBalance();
       break;
     case "2":
       amount = promptFor(

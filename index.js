@@ -2,11 +2,9 @@ const atm = require("./atm");
 const prompt = require("prompt-sync")();
 
 function app() {
-  var pin = requestPIN();
-
-  while (!atm.validatePin(pin)) {
-    pin = requestPIN();
-  }
+  do {
+    var pin = requestPIN();
+  } while (!atm.validatePin(pin));
 
   return userMenu();
 }

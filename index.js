@@ -21,21 +21,21 @@ function userMenu() {
 
   switch (action.toLowerCase().trim()) {
     case "1":
-      atm.getBalance();
+      displayBalance(atm.getBalance());
       break;
     case "2":
       amount = promptFor(
         `Enter amount to withdraw: ${atm.currency}`,
         isValidAmount
       );
-      atm.withdraw(amount);
+      displayBalance(atm.withdraw(amount));
       break;
     case "3":
       amount = promptFor(
         `Enter amount to deposit: ${atm.currency}`,
         isValidAmount
       );
-      atm.deposit(amount);
+      displayBalance(atm.deposit(amount));
       break;
     case "4":
       return;
@@ -55,6 +55,14 @@ function displayMainMenu() {
   console.log("2: Withdraw");
   console.log("3: Deposit");
   console.log("4: Exit");
+}
+
+function displayBalance(amount) {
+  if (amount) {
+    console.log("Balance: ", amount);
+  } else {
+    console.log("Error! Please try again.");
+  }
 }
 
 function promptFor(question, valid) {

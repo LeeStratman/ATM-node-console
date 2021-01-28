@@ -3,17 +3,17 @@ const account = require("./account");
 const currency = "$";
 
 function getBalance() {
-  console.log("Your balance: ", formatCurrency(account.balance));
+  return formatCurrency(account.balance);
 }
 
 function withdraw(amount) {
   account.balance -= parseFloat(amount);
-  console.log("New balance:", formatCurrency(account.balance));
+  return getBalance();
 }
 
 function deposit(amount) {
   account.balance += parseFloat(amount);
-  console.log("New balance: ", formatCurrency(account.balance));
+  return getBalance();
 }
 
 function validatePin(pin) {

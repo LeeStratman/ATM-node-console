@@ -22,13 +22,14 @@ function userMenu() {
   console.log("4: Exit");
 
   let action = prompt("Please select an option above.");
-
+  let amount = 0;
   switch (action.toLowerCase().trim()) {
     case "1":
       console.log(atm.getBalance());
       break;
     case "2":
-      console.log("Withdraw");
+      amount = prompt("Enter amount to Withdraw?");
+      atm.withdraw(amount);
       break;
     case "3":
       console.log("Deposit");

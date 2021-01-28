@@ -4,7 +4,10 @@ function getBalance() {
   return formatCurrency(account.balance);
 }
 
-function withdraw() {}
+function withdraw(amount) {
+  account.balance -= Number(amount);
+  console.log("New balance: ", formatCurrency(account.balance));
+}
 
 function deposit() {}
 

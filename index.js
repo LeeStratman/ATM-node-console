@@ -8,7 +8,7 @@ function app() {
     pin = requestPIN();
   }
 
-  userMenu();
+  return userMenu();
 }
 
 function requestPIN() {
@@ -23,6 +23,8 @@ function userMenu() {
 
   let action = prompt("Please select an option above. ");
   let amount = 0;
+  let exit = false;
+
   switch (action.toLowerCase().trim()) {
     case "1":
       console.log(atm.getBalance());
@@ -36,10 +38,17 @@ function userMenu() {
       atm.deposit(amount);
       break;
     case "4":
-      console.log("Exit");
-      return;
+      exit = true;
+      break;
+    case "exit":
+      exit = true;
+      break;
     default:
       userMenu();
+  }
+
+  if (!exit) {
+    userMenu();
   }
 }
 

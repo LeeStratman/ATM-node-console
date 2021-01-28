@@ -21,7 +21,6 @@ function userMenu() {
 
   let action = prompt("Please select an option above. ");
   let amount = 0;
-  let exit = false;
 
   switch (action.toLowerCase().trim()) {
     case "1":
@@ -36,17 +35,13 @@ function userMenu() {
       atm.deposit(amount);
       break;
     case "4":
-      exit = true;
+      return;
       break;
     case "exit":
-      exit = true;
+      return;
       break;
     default:
-      userMenu();
-  }
-
-  if (!exit) {
-    userMenu();
+      return userMenu();
   }
 }
 

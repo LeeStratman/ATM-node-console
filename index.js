@@ -14,10 +14,7 @@ function requestPIN() {
 }
 
 function userMenu() {
-  console.log("1: Balance");
-  console.log("2: Withdraw");
-  console.log("3: Deposit");
-  console.log("4: Exit");
+  displayMainMenu();
 
   let action = prompt("Please select an option above. ");
   let amount = 0;
@@ -51,6 +48,13 @@ function userMenu() {
   }
 
   return userMenu();
+}
+
+function displayMainMenu() {
+  console.log("1: Balance");
+  console.log("2: Withdraw");
+  console.log("3: Deposit");
+  console.log("4: Exit");
 }
 
 function promptFor(question, valid) {

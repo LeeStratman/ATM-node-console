@@ -1,5 +1,5 @@
 const account = require("./account");
-
+const wallet = require("./wallet");
 const currency = "$";
 
 function getBalance() {
@@ -8,11 +8,15 @@ function getBalance() {
 
 function withdraw(amount) {
   account.balance -= parseFloat(amount);
+  wallet.balance += parseFloat(amount);
+  console.log("Wallet: ", wallet.balance);
   return getBalance();
 }
 
 function deposit(amount) {
   account.balance += parseFloat(amount);
+  wallet.balance -= parseFloat(amount);
+
   return getBalance();
 }
 

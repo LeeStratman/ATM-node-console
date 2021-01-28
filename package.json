@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/LeeStratman/ATM-node-console/issues"
   },
-  "homepage": "https://github.com/LeeStratman/ATM-node-console#readme"
+  "homepage": "https://github.com/LeeStratman/ATM-node-console#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
 }

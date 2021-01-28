@@ -16,7 +16,29 @@ function requestPIN() {
 }
 
 function userMenu() {
-  console.log("Main Menu");
+  console.log("1: Balance");
+  console.log("2: Withdraw");
+  console.log("3: Deposit");
+  console.log("4: Exit");
+
+  let action = prompt("Please select an option above.");
+
+  switch (action.toLowerCase().trim()) {
+    case "1":
+      console.log("Balance");
+      break;
+    case "2":
+      console.log("Withdraw");
+      break;
+    case "3":
+      console.log("Deposit");
+      break;
+    case "4":
+      console.log("Exit");
+      return;
+    default:
+      userMenu();
+  }
 }
 
 app();

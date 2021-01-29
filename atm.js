@@ -1,3 +1,5 @@
+"use strict";
+
 const account = require("./account");
 const wallet = require("./wallet");
 const currency = "$";

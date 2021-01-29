@@ -1,25 +1,20 @@
+"use strict";
+
 const atm = require("./atm");
 const prompt = require("prompt-sync")();
 
 function app() {
-  do {
-    var pin = requestPIN();
-  } while (!atm.validatePin(pin));
+  promptFor("Please enter your PIN: ", atm.validatePin, { echo: "*" });
 
   return userMenu();
-}
-
-function requestPIN() {
-  return prompt("Please enter your PIN: ", { echo: "*" });
 }
 
 function userMenu() {
   displayMainMenu();
 
   let action = prompt("Please select an option above. ");
-  let amount = 0;
 
-  switch (action.toLowerCase().trim()) {
+  switch (action.toString().toLowerCase().trim()) {
     case "1":
       displayBalance();
       break;
@@ -47,7 +42,7 @@ function displayMainMenu() {
 }
 
 function withdraw() {
-  amount = promptFor(
+  let amount = promptFor(
     `Enter amount to withdraw: ${atm.currency}`,
     isValidAmount
   );
@@ -60,7 +55,10 @@ function withdraw() {
 }
 
 function deposit() {
-  amount = promptFor(`Enter amount to deposit: ${atm.currency}`, isValidAmount);
+  let amount = promptFor(
+    `Enter amount to deposit: ${atm.currency}`,
+    isValidAmount
+  );
 
   if (atm.deposit(amount)) {
     receipt();
@@ -103,9 +101,9 @@ function displayError(message) {
   console.log("Error: ", message);
 }
 
-function promptFor(question, valid) {
+function promptFor(question, valid, options = {}) {
   do {
-    var response = prompt(question);
+    var response = prompt(question, options);
   } while (!response || !valid(response));
   return response;
 }
@@ -130,6 +128,10 @@ function hasTwoDecimals(input, decimalPlaces) {
   let decimals = String(input).split(".");
 
   return decimals.length == 1 || decimals[1].length == decimalPlaces;
+}
+
+function sanitizeInput(input) {
+  return String(input).toLowerCase().trim();
 }
 
 app();

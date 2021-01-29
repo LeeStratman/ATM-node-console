@@ -88,6 +88,7 @@ function displayReceipt() {
   let [hour, minute, second] = new Date()
     .toLocaleTimeString("en-US")
     .split(/:| /);
+  console.log("");
   console.log("##############################");
   console.log("Common Cents Bank Receipt");
   console.log("Date:", `${month}/${date}/${year}`);
@@ -115,8 +116,14 @@ function yesNo(input) {
 }
 
 function isValidAmount(input) {
-  float = parseFloat(input);
-  return !isNaN(float) && float > 0 && hasTwoDecimals(input, 2);
+  let float = parseFloat(input);
+
+  if (!isNaN(float) && float > 0 && hasTwoDecimals(input, 2)) {
+    return true;
+  }
+
+  displayError("Invalid amount. Please try again.");
+  return false;
 }
 
 function hasTwoDecimals(input, decimalPlaces) {
@@ -126,7 +133,6 @@ function hasTwoDecimals(input, decimalPlaces) {
     return true;
   }
 
-  displayError("Invalid amount. Please try again.");
   return false;
 }
 

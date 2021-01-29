@@ -72,15 +72,15 @@ function deposit() {
 function receipt() {
   console.log("1: Yes");
   console.log("2: No");
-  let receipt = promptFor("Would you like a receipt? ", yesNo);
+  let receipt = promptFor("Do you want a receipt? ", yesNo);
 
   if (receipt.trim() == "1") {
     displayReceipt();
   }
 }
 
-function displayBalance(amount) {
-  console.log("Balance: ", atm.getBalance());
+function displayBalance() {
+  console.log("Available Balance: ", atm.getBalance());
 }
 
 function displayReceipt() {
@@ -94,7 +94,7 @@ function displayReceipt() {
   console.log("Date:", `${month}/${date}/${year}`);
   console.log("Time:", `${hour}:${minute}`);
   console.log("");
-  console.log("Available Balance:", atm.getBalance());
+  displayBalance();
   console.log("##############################");
   console.log("");
 }

@@ -24,35 +24,12 @@ function userMenu() {
       displayBalance();
       break;
     case "2":
-      amount = promptFor(
-        `Enter amount to withdraw: ${atm.currency}`,
-        isValidAmount
-      );
-
-      if (atm.withdraw(amount)) {
-        receipt();
-      } else {
-        displayError("INSUFFICIENT FUNDS.");
-      }
-
+      withdraw();
       break;
     case "3":
-      amount = promptFor(
-        `Enter amount to deposit: ${atm.currency}`,
-        isValidAmount
-      );
-
-      if (atm.deposit(amount)) {
-        receipt();
-      } else {
-        displayError("DEPOSIT UNSUCCESSFUL");
-      }
-
+      deposit();
       break;
     case "4":
-      return;
-      break;
-    case "exit":
       return;
       break;
     default:
@@ -67,6 +44,29 @@ function displayMainMenu() {
   console.log("2: Withdraw");
   console.log("3: Deposit");
   console.log("4: Exit");
+}
+
+function withdraw() {
+  amount = promptFor(
+    `Enter amount to withdraw: ${atm.currency}`,
+    isValidAmount
+  );
+
+  if (atm.withdraw(amount)) {
+    receipt();
+  } else {
+    displayError("INSUFFICIENT FUNDS.");
+  }
+}
+
+function deposit() {
+  amount = promptFor(`Enter amount to deposit: ${atm.currency}`, isValidAmount);
+
+  if (atm.deposit(amount)) {
+    receipt();
+  } else {
+    displayError("DEPOSIT UNSUCCESSFUL");
+  }
 }
 
 function receipt() {
@@ -100,17 +100,18 @@ function yesNo(input) {
 }
 
 function isValidAmount(input) {
-  input = parseFloat(input);
-  return !isNaN(input) && input > 0 && isFixed(input, 2);
+  float = parseFloat(input);
+  return !isNaN(float) && float > 0 && hasTwoDecimals(input, 2);
 }
 
-function isFixed(input, decimalPlaces) {
+function hasTwoDecimals(input, decimalPlaces) {
   let decimals = String(input).split(".");
 
-  if (decimals.length === 1 || decimals[1].length <= decimalPlaces) {
+  if (decimals.length == 1 || decimals[1].length == decimalPlaces) {
     return true;
   }
 
+  displayError("Invalid amount. Please try again.");
   return false;
 }
 

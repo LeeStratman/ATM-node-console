@@ -14,7 +14,7 @@ function mainMenu() {
 
   let action = prompt("Please select an option above. ");
 
-  switch (action.toString().trim()) {
+  switch (sanitizeInput(action)) {
     case "1":
       displayBalance();
       break;
@@ -72,7 +72,7 @@ function receipt() {
   console.log("2: No");
   let receipt = promptFor("Do you want a receipt? ", yesNo);
 
-  if (receipt.trim() == "1") {
+  if (receipt == "1") {
     displayReceipt();
   }
 }
@@ -103,13 +103,17 @@ function displayError(message) {
 
 function promptFor(question, valid, options = {}) {
   do {
-    var response = prompt(question, options);
+    var response;
+    try {
+      response = sanitizeInput(prompt(question, options));
+    } catch {
+      response = "";
+    }
   } while (!response || !valid(response));
   return response;
 }
 
 function yesNo(input) {
-  input = input.trim();
   return input === "1" || input === "2";
 }
 
@@ -125,7 +129,7 @@ function isValidAmount(input) {
 }
 
 function hasTwoDecimals(input, decimalPlaces) {
-  let decimals = String(input).split(".");
+  let decimals = input.split(".");
 
   return decimals.length == 1 || decimals[1].length == decimalPlaces;
 }

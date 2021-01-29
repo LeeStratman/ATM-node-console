@@ -75,12 +75,27 @@ function receipt() {
   let receipt = promptFor("Would you like a receipt? ", yesNo);
 
   if (receipt.trim() == "1") {
-    displayBalance();
+    displayReceipt();
   }
 }
 
 function displayBalance(amount) {
   console.log("Balance: ", atm.getBalance());
+}
+
+function displayReceipt() {
+  let [month, date, year] = new Date().toLocaleDateString("en-US").split("/");
+  let [hour, minute, second] = new Date()
+    .toLocaleTimeString("en-US")
+    .split(/:| /);
+  console.log("##############################");
+  console.log("Common Cents Bank Receipt");
+  console.log("Date:", `${month}/${date}/${year}`);
+  console.log("Time:", `${hour}:${minute}`);
+  console.log("");
+  console.log("Available Balance:", atm.getBalance());
+  console.log("##############################");
+  console.log("");
 }
 
 function displayError(message) {

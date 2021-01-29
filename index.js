@@ -14,7 +14,7 @@ function userMenu() {
 
   let action = prompt("Please select an option above. ");
 
-  switch (action.toString().toLowerCase().trim()) {
+  switch (action.toString().trim()) {
     case "1":
       displayBalance();
       break;
@@ -25,7 +25,7 @@ function userMenu() {
       deposit();
       break;
     case "4":
-      return;
+      return exit();
       break;
     default:
       return userMenu();
@@ -132,6 +132,10 @@ function hasTwoDecimals(input, decimalPlaces) {
 
 function sanitizeInput(input) {
   return String(input).toLowerCase().trim();
+}
+
+function exit() {
+  console.log("Have a great day!");
 }
 
 app();

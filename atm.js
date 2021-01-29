@@ -7,21 +7,31 @@ function getBalance() {
 }
 
 function withdraw(amount) {
-  account.balance -= parseFloat(amount);
-  wallet.balance += parseFloat(amount);
+  amount = parseFloat(amount);
 
-  return getBalance();
+  if (haveSufficientFunds(amount)) {
+    account.balance -= amount;
+    wallet.balance += amount;
+
+    return true;
+  }
+
+  return false;
 }
 
 function deposit(amount) {
   account.balance += parseFloat(amount);
   wallet.balance -= parseFloat(amount);
 
-  return getBalance();
+  return true;
 }
 
 function validatePin(pin) {
   return account.pin === pin;
+}
+
+function haveSufficientFunds(amount) {
+  return account.balance >= amount;
 }
 
 function formatCurrency(amount) {

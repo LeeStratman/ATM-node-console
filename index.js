@@ -21,21 +21,33 @@ function userMenu() {
 
   switch (action.toLowerCase().trim()) {
     case "1":
-      displayBalance(atm.getBalance());
+      displayBalance();
       break;
     case "2":
       amount = promptFor(
         `Enter amount to withdraw: ${atm.currency}`,
         isValidAmount
       );
-      displayBalance(atm.withdraw(amount));
+
+      if (atm.withdraw(amount)) {
+        receipt();
+      } else {
+        displayError("INSUFFICIENT FUNDS.");
+      }
+
       break;
     case "3":
       amount = promptFor(
         `Enter amount to deposit: ${atm.currency}`,
         isValidAmount
       );
-      displayBalance(atm.deposit(amount));
+
+      if (atm.deposit(amount)) {
+        receipt();
+      } else {
+        displayError("DEPOSIT UNSUCCESSFUL");
+      }
+
       break;
     case "4":
       return;
@@ -57,12 +69,22 @@ function displayMainMenu() {
   console.log("4: Exit");
 }
 
-function displayBalance(amount) {
-  if (amount) {
-    console.log("Balance: ", amount);
-  } else {
-    console.log("Error! Please try again.");
+function receipt() {
+  console.log("1: Yes");
+  console.log("2: No");
+  let receipt = promptFor("Would you like a receipt? ", yesNo);
+
+  if (receipt.trim() == "1") {
+    displayBalance();
   }
+}
+
+function displayBalance(amount) {
+  console.log("Balance: ", atm.getBalance());
+}
+
+function displayError(message) {
+  console.log("Error: ", message);
 }
 
 function promptFor(question, valid) {
@@ -72,18 +94,20 @@ function promptFor(question, valid) {
   return response;
 }
 
+function yesNo(input) {
+  input = input.trim();
+  return input === "1" || input === "2";
+}
+
 function isValidAmount(input) {
-  let float = parseFloat(input);
-  return !isNaN(float) && float > 0 && isFixed(input, 2);
+  input = parseFloat(input);
+  return !isNaN(input) && input > 0 && isFixed(input, 2);
 }
 
 function isFixed(input, decimalPlaces) {
   let decimals = String(input).split(".");
 
-  if (
-    decimals.length === 1 ||
-    (decimals.length > 1 && decimals[1].length <= decimalPlaces)
-  ) {
+  if (decimals.length === 1 || decimals[1].length <= decimalPlaces) {
     return true;
   }
 

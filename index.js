@@ -6,11 +6,11 @@ const prompt = require("prompt-sync")();
 function app() {
   promptFor("Please enter your PIN: ", atm.validatePin, { echo: "*" });
 
-  return userMenu();
+  return mainMenu();
 }
 
-function userMenu() {
-  displayMainMenu();
+function mainMenu() {
+  displayMainMenuOptions();
 
   let action = prompt("Please select an option above. ");
 
@@ -28,13 +28,13 @@ function userMenu() {
       return exit();
       break;
     default:
-      return userMenu();
+      return mainMenu();
   }
 
-  return userMenu();
+  return mainMenu();
 }
 
-function displayMainMenu() {
+function displayMainMenuOptions() {
   console.log("1: Balance");
   console.log("2: Withdraw");
   console.log("3: Deposit");

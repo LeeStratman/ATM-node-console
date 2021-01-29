@@ -129,11 +129,7 @@ function isValidAmount(input) {
 function hasTwoDecimals(input, decimalPlaces) {
   let decimals = String(input).split(".");
 
-  if (decimals.length == 1 || decimals[1].length == decimalPlaces) {
-    return true;
-  }
-
-  return false;
+  return decimals.length == 1 || decimals[1].length == decimalPlaces;
 }
 
 app();

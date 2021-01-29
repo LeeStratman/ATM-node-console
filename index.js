@@ -26,7 +26,6 @@ function mainMenu() {
       break;
     case "4":
       return exit();
-      break;
     default:
       return mainMenu();
   }
@@ -83,9 +82,7 @@ function displayBalance() {
 
 function displayReceipt() {
   let [month, date, year] = new Date().toLocaleDateString("en-US").split("/");
-  let [hour, minute, second] = new Date()
-    .toLocaleTimeString("en-US")
-    .split(/:| /);
+  let [hour, minute] = new Date().toLocaleTimeString("en-US").split(/:| /);
   console.log("");
   console.log("##############################");
   console.log("Common Cents Bank Receipt");

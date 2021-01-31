@@ -14,7 +14,7 @@ function withdraw(amount) {
   if (haveSufficientFunds(amount)) {
     account.balance -= amount;
     wallet.balance += amount;
-
+    account.history.push({ type: "withdraw", amount: formatCurrency(amount) });
     return true;
   }
 
@@ -22,8 +22,10 @@ function withdraw(amount) {
 }
 
 function deposit(amount) {
-  account.balance += parseFloat(amount);
-  wallet.balance -= parseFloat(amount);
+  amount = parseFloat(amount);
+  account.balance += amount;
+  wallet.balance -= amount;
+  account.history.push({ type: "deposit", amount: formatCurrency(amount) });
 
   return true;
 }
@@ -45,10 +47,15 @@ function formatCurrency(amount) {
   return `${sign}${currency}${amount.toFixed(2)}`;
 }
 
+function getHistory() {
+  return account.history;
+}
+
 module.exports = {
   getBalance,
   withdraw,
   deposit,
   validatePin,
   currency,
+  getHistory,
 };

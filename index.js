@@ -80,6 +80,15 @@ function displayBalance() {
   console.log("Available Balance: ", atm.getBalance());
 }
 
+function displayTransactions() {
+  atm
+    .getHistory()
+    .map((transaction) =>
+      console.log(`${capitalize(transaction.type)}: ${transaction.amount}`)
+    );
+  console.log("");
+}
+
 function displayReceipt() {
   let [month, date, year] = new Date().toLocaleDateString("en-US").split("/");
   let [hour, minute] = new Date().toLocaleTimeString("en-US").split(/:| /);
@@ -89,6 +98,7 @@ function displayReceipt() {
   console.log("Date:", `${month}/${date}/${year}`);
   console.log("Time:", `${hour}:${minute}`);
   console.log("");
+  displayTransactions();
   displayBalance();
   console.log("##############################");
   console.log("");
@@ -138,6 +148,10 @@ function hasTwoDecimals(input, decimalPlaces) {
 
 function sanitizeInput(input) {
   return String(input).toLowerCase().trim();
+}
+
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function exit() {

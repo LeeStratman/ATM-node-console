@@ -111,7 +111,12 @@ function promptFor(question, valid, options = {}) {
 }
 
 function yesNo(input) {
-  return input === "1" || input === "2";
+  if (input === "1" || input === "2") {
+    return true;
+  }
+
+  displayError("Invalid option. Please enter '1' for yes or '2' for no.");
+  return false;
 }
 
 function isValidAmount(input) {

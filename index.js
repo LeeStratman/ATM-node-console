@@ -46,11 +46,7 @@ function withdraw() {
     isValidAmount
   );
 
-  if (atm.withdraw(amount)) {
-    receipt();
-  } else {
-    displayError("INSUFFICIENT FUNDS.");
-  }
+  return atm.withdrawl(amount) ? receipt() : displayError("Insufficient Funds");
 }
 
 function deposit() {
@@ -59,11 +55,7 @@ function deposit() {
     isValidAmount
   );
 
-  if (atm.deposit(amount)) {
-    receipt();
-  } else {
-    displayError("DEPOSIT UNSUCCESSFUL");
-  }
+  return atm.deposit(amount) ? receipt() : displayError("Deposit Unsuccessful");
 }
 
 function receipt() {

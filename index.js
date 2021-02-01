@@ -2,6 +2,7 @@
 
 const atm = require("./atm");
 const prompt = require("prompt-sync")();
+const { printReceipt } = require("./receipt");
 
 function app() {
   promptFor("Please enter your PIN: ", atm.validatePin, { echo: "*" });
@@ -64,7 +65,7 @@ function receipt() {
   let receipt = promptFor("Do you want a receipt? ", yesNo);
 
   if (receipt == "1") {
-    displayReceipt();
+    printReceipt(displayBalance, displayTransactions);
   }
 }
 
@@ -78,21 +79,6 @@ function displayTransactions() {
     .map((transaction) =>
       console.log(`${capitalize(transaction.type)}: ${transaction.amount}`)
     );
-  console.log("");
-}
-
-function displayReceipt() {
-  let [month, date, year] = new Date().toLocaleDateString("en-US").split("/");
-  let [hour, minute] = new Date().toLocaleTimeString("en-US").split(/:| /);
-  console.log("");
-  console.log("##############################");
-  console.log("Common Cents Bank Receipt");
-  console.log("Date:", `${month}/${date}/${year}`);
-  console.log("Time:", `${hour}:${minute}`);
-  console.log("");
-  displayTransactions();
-  displayBalance();
-  console.log("##############################");
   console.log("");
 }
 

@@ -3,6 +3,8 @@
 const atm = require("./atm");
 const prompt = require("prompt-sync")();
 const { printReceipt } = require("./receipt");
+const history = [];
+const currency = "$";
 
 function app() {
   promptFor("Please enter your PIN: ", atm.validatePin, { echo: "*" });
@@ -43,20 +45,31 @@ function displayMainMenuOptions() {
 
 function withdraw() {
   let amount = promptFor(
-    `Enter amount to withdraw: ${atm.currency}`,
+    `Enter amount to withdraw: ${currency}`,
     isValidAmount
   );
 
-  return atm.withdrawl(amount) ? receipt() : displayError("Insufficient Funds");
+  amount = convertToFloat(amount);
+
+  if (atm.withdraw(amount)) {
+    history.push({ type: "withdraw", amount: formatCurrency(amount) });
+    receipt();
+  } else {
+    displayError("Insufficient Funds");
+  }
 }
 
 function deposit() {
-  let amount = promptFor(
-    `Enter amount to deposit: ${atm.currency}`,
-    isValidAmount
-  );
+  let amount = promptFor(`Enter amount to deposit: ${currency}`, isValidAmount);
 
-  return atm.deposit(amount) ? receipt() : displayError("Deposit Unsuccessful");
+  amount = convertToFloat(amount);
+
+  if (atm.deposit(amount)) {
+    history.push({ type: "deposit", amount: formatCurrency(amount) });
+    receipt();
+  } else {
+    displayError("Deposit Unsuccessful");
+  }
 }
 
 function receipt() {
@@ -70,15 +83,13 @@ function receipt() {
 }
 
 function displayBalance() {
-  console.log("Available Balance: ", atm.getBalance());
+  console.log("Available Balance: ", formatCurrency(atm.getBalance()));
 }
 
 function displayTransactions() {
-  atm
-    .getHistory()
-    .map((transaction) =>
-      console.log(`${capitalize(transaction.type)}: ${transaction.amount}`)
-    );
+  history.map((transaction) =>
+    console.log(`${capitalize(transaction.type)}: ${transaction.amount}`)
+  );
   console.log("");
 }
 
@@ -134,6 +145,19 @@ function capitalize(string) {
 
 function exit() {
   console.log("Have a great day!");
+}
+
+function convertToFloat(input) {
+  return parseFloat(input);
+}
+
+function formatCurrency(amount) {
+  let sign = "";
+  if (amount < 0) {
+    sign = "-";
+    amount = Math.abs(amount);
+  }
+  return `${sign}${currency}${amount.toFixed(2)}`;
 }
 
 app();

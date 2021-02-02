@@ -1,3 +1,5 @@
+"use strict";
+
 function printReceipt(balance, transactions = () => {}) {
   console.log("");
   console.log("##############################");
